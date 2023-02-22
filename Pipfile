@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 prompt-toolkit = "*"
 clintermission = "*"
+pypdf2 = "*"
 
 [dev-packages]
 pyinstaller = "*"
