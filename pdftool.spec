@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['main.py'],
+    ['pdftool/main.py'],
     pathex=[],
     binaries=[],
     datas=[],

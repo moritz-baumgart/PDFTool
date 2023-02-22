@@ -1,6 +1,4 @@
-from merge import merge
-from reorderDualPage import reorderDualPage
-from deletePages import deletePages
+from operations import merge, reorderDualPage, deletePages
 
 from clintermission import CliMenu, CliMenuStyle, CliMenuCursor
 
@@ -20,12 +18,5 @@ def main():
     if(selection is not None):
         choices[selection]()
 
-
-
-
-
 if __name__ == '__main__':
     main()
-
- 
-
