@@ -10,6 +10,7 @@ pypdf2 = "*"
 
 [dev-packages]
 pyinstaller = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.10"

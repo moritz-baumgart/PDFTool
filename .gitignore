@@ -1,3 +1,8 @@
+
+# Contains PDFs I use for testing
+testfiles/
+
+# -----------------------------
 # Created by https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,windows,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode,windows,linux
 

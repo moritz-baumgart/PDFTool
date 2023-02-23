@@ -1,4 +1,4 @@
 
 
-def deletePages():
+def delete_pages():
     raise NotImplementedError()

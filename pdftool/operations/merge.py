@@ -1,14 +1,13 @@
-from prompt_toolkit import prompt
-from prompt_toolkit.shortcuts import ProgressBar
-from prompt_toolkit.patch_stdout import patch_stdout
-from clintermission import CliMenu, CliMenuStyle, CliMenuCursor
+import os
 import pathlib
 from typing import List
-import os
-from PyPDF2 import PdfReader, PdfMerger
 
+from clintermission import CliMenu, CliMenuCursor, CliMenuStyle
+from prompt_toolkit import prompt
+from prompt_toolkit.patch_stdout import patch_stdout
+from prompt_toolkit.shortcuts import ProgressBar
+from PyPDF2 import PdfMerger, PdfReader
 from util import FileCompleter
-
 
 
 def merge() -> bool:
@@ -23,7 +22,6 @@ def merge() -> bool:
         else:
             selectedFiles = ', '.join([file.name for file in file_paths])
 
-
         # the choices the user has in this "submenu"
         choices = [
             'Add a file/directory',
@@ -33,15 +31,16 @@ def merge() -> bool:
 
         # prompt one of the choices above
         style = CliMenuStyle('#CCCCCC', '#FFFFFF', '#FFFF00')
-        menu = CliMenu(choices, f'\n● MERGE\nSelected files: { selectedFiles }\n', dedent_selection=True, style=style, cursor=CliMenuCursor.ARROW)
+        menu = CliMenu(choices, f'\n● MERGE\nSelected files: { selectedFiles }\n',
+                       dedent_selection=True, style=style, cursor=CliMenuCursor.ARROW)
         selection = menu.get_selection()
         # selection is none if user presses e.g. ctrl+c, exit at this point
         if selection[0] is None:
             exit()
-        
-        # choices 0-2 correspond to choices above 
+
+        # choices 0-2 correspond to choices above
         elif selection[0] == 0:
-            
+
             # prompt user for a file/dir to be added, check existence
             file = prompt('\nEnter a file or directory (leave empty for current directory): ', completer=FileCompleter())
             path = pathlib.Path(file).absolute()
@@ -60,7 +59,6 @@ def merge() -> bool:
         elif selection[0] == 2:
             # return true on abort so main nows we aborted and does not exit
             return True
-    
 
 
 def __merge(file_paths: List[pathlib.Path], output_file_name: str) -> None:
