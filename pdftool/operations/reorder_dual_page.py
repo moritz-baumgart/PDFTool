@@ -3,9 +3,8 @@ import pathlib
 from prompt_toolkit import HTML, print_formatted_text, prompt
 from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.shortcuts import ProgressBar
-from prompt_toolkit.styles import Style
 from PyPDF2 import PdfReader, PdfWriter
-from util import FileCompleter
+from util import FileCompleter, constants
 
 
 def reorder_dual_page():
@@ -14,12 +13,8 @@ def reorder_dual_page():
     Return True on abort, False on success
     """
 
-    style = Style.from_dict({
-        'prompt': 'ansiyellow'
-    })
-
     # prompt the user for a filename with the style above
-    file = prompt('\n● REORDER DUAL PAGE\nEnter a file: ', completer=FileCompleter(), style=style)
+    file = prompt('\n● REORDER DUAL PAGE\nEnter a file: ', completer=FileCompleter(), style=constants.PROMPT_STYLE)
 
     # if no name given, abort
     if len(file) == 0:
@@ -40,7 +35,7 @@ def reorder_dual_page():
         return True
 
     # prompt for an output file name with style, if none is given use default
-    output_file_name = prompt('\nEnter output file name (leave empty for default \'reorder-output.pdf\'): ', style=style)
+    output_file_name = prompt('\nEnter output file name (leave empty for default \'reorder-output.pdf\'): ', style=constants.PROMPT_STYLE)
     if len(output_file_name) == 0:
         output_file_name = 'reorder-output.pdf'
 

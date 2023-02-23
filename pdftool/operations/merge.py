@@ -2,12 +2,12 @@ import os
 import pathlib
 from typing import List
 
-from clintermission import CliMenu, CliMenuCursor, CliMenuStyle
+from clintermission import CliMenu, CliMenuCursor
 from prompt_toolkit import prompt
 from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.shortcuts import ProgressBar
 from PyPDF2 import PdfMerger, PdfReader
-from util import FileCompleter
+from util import FileCompleter, constants
 
 
 def merge() -> bool:
@@ -30,9 +30,8 @@ def merge() -> bool:
         ]
 
         # prompt one of the choices above
-        style = CliMenuStyle('#CCCCCC', '#FFFFFF', '#FFFF00')
         menu = CliMenu(choices, f'\n● MERGE\nSelected files: { selectedFiles }\n',
-                       dedent_selection=True, style=style, cursor=CliMenuCursor.ARROW)
+                       dedent_selection=True, style=constants.CLI_MENU_STYLE, cursor=CliMenuCursor.ARROW)
         selection = menu.get_selection()
         # selection is none if user presses e.g. ctrl+c, exit at this point
         if selection[0] is None:
@@ -42,7 +41,7 @@ def merge() -> bool:
         elif selection[0] == 0:
 
             # prompt user for a file/dir to be added, check existence
-            file = prompt('\nEnter a file or directory (leave empty for current directory): ', completer=FileCompleter())
+            file = prompt('\nEnter a file or directory (leave empty for current directory): ', completer=FileCompleter(), style=constants.PROMPT_STYLE)
             path = pathlib.Path(file).absolute()
             if path.exists():
                 file_paths.append(path)
@@ -51,7 +50,7 @@ def merge() -> bool:
         elif selection[0] == 1:
 
             # prompt output file name, if none given use default, then call __merge
-            output_file = prompt('\nEnter output file name (leave empty for default \'merge-output.pdf\'): ')
+            output_file = prompt('\nEnter output file name (leave empty for default \'merge-output.pdf\'): ', style=constants.PROMPT_STYLE)
             if len(output_file) == 0:
                 output_file = 'merge-output.pdf'
             __merge(file_paths, output_file)
