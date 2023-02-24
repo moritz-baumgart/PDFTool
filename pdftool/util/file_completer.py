@@ -4,10 +4,10 @@ from prompt_toolkit.completion import Completer, Completion
 
 
 class FileCompleter(Completer):
-    """
+    '''
     This completer auto suggests files inside the current path the user has already typed.
     Similar like you know it from every CLI.
-    """
+    '''
 
     def __init__(self):
         self.cwd = '.'

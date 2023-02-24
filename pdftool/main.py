@@ -1,7 +1,7 @@
 from sys import exit
 
-from clintermission import CliMenu, CliMenuCursor, CliMenuStyle
 from operations import delete_pages, merge, reorder_dual_page
+from util import create_cli_menu
 
 
 def main():
@@ -17,8 +17,7 @@ def main():
         }
 
         # Prompt the user a kind of "main menu" with the options above
-        style = CliMenuStyle('#CCCCCC', '#FFFFFF', '#FFFF00')
-        menu = CliMenu(choices, "\nWhat do you want to do?:\n", dedent_selection=True, style=style, cursor=CliMenuCursor.ARROW)
+        menu = create_cli_menu(choices, '\nWhat do you want to do?:\n')
 
         selection = menu.get_selection()[1]
 

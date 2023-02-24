@@ -6,3 +6,4 @@ PROMPT_STYLE = Style.from_dict({
 })
 
 CLI_MENU_STYLE = CliMenuStyle('#CCCCCC', '#FFFFFF', '#FFFF00')
+CLI_MENU_STYLE_ERROR = CliMenuStyle('#CCCCCC', '#FFFFFF', '#FF0000')
