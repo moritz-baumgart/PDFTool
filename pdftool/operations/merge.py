@@ -5,7 +5,7 @@ from typing import List
 from prompt_toolkit import prompt
 from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.shortcuts import ProgressBar
-from PyPDF2 import PdfMerger, PdfReader
+from pypdf import PdfMerger, PdfReader
 from util import FileCompleter, constants, create_cli_menu
 
 
@@ -95,7 +95,7 @@ def __merge(file_paths: List[pathlib.Path], output_file_name: str) -> None:
                                 print(f'Found PDF! Added: {fpd}')
 
     with patch_stdout():
-        # use pypdf2 pdf merger to merge the pdfs
+        # use pypdf pdf merger to merge the pdfs
         merger = PdfMerger()
         with ProgressBar(title='Merging...') as p_b:
             for fp in p_b(all_pdf_paths):

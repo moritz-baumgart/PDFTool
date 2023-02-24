@@ -3,7 +3,7 @@ import pathlib
 from prompt_toolkit import HTML, print_formatted_text, prompt
 from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.shortcuts import ProgressBar
-from PyPDF2 import PdfReader, PdfWriter
+from pypdf import PdfReader, PdfWriter
 from util import FileCompleter, constants, create_cli_menu
 
 
