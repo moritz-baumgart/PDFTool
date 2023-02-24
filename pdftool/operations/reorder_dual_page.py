@@ -4,7 +4,7 @@ from prompt_toolkit import HTML, print_formatted_text, prompt
 from prompt_toolkit.patch_stdout import patch_stdout
 from prompt_toolkit.shortcuts import ProgressBar
 from PyPDF2 import PdfReader, PdfWriter
-from util import FileCompleter, constants
+from util import FileCompleter, constants, create_cli_menu
 
 
 def reorder_dual_page():
@@ -35,9 +35,16 @@ def reorder_dual_page():
         return True
 
     # prompt for an output file name with style, if none is given use default
-    output_file_name = prompt('\nEnter output file name (leave empty for default \'reorder-output.pdf\'): ', style=constants.PROMPT_STYLE).strip()
+    output_file_name = prompt('\nEnter output file name (leave empty for default \'reorder-output.pdf\'): ', completer=FileCompleter(), style=constants.PROMPT_STYLE).strip()
     if len(output_file_name) == 0:
         output_file_name = 'reorder-output.pdf'
+
+    output_file_path = pathlib.Path(output_file_name)
+    if output_file_path.exists():
+        menu = create_cli_menu(['Abort!', 'OVERWRITE!'], '\nFile already exists!', style=constants.CLI_MENU_STYLE_ERROR)
+        selection = menu.get_selection()[0]
+        if selection is None or selection == 0:
+            return True
 
     # reorder the pages and write result with progress bar
     # reordering happens in the following fashion:
@@ -51,6 +58,6 @@ def reorder_dual_page():
                 writer.add_page(reader.pages[page_num - i - 1])
 
         print('Saving result...')
-        writer.write(output_file_name)
+        writer.write(output_file_path)
 
     return False

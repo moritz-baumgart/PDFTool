@@ -51,7 +51,15 @@ def merge() -> bool:
             output_file = prompt('\nEnter output file name (leave empty for default \'merge-output.pdf\'): ', style=constants.PROMPT_STYLE).strip()
             if len(output_file) == 0:
                 output_file = 'merge-output.pdf'
-            __merge(file_paths, output_file)
+
+            output_file_path = pathlib.Path(output_file)
+            if output_file_path.exists():
+                menu = create_cli_menu(['Abort!', 'OVERWRITE!'], '\nFile already exists!', style=constants.CLI_MENU_STYLE_ERROR)
+                selection = menu.get_selection()[0]
+                if selection is None or selection == 0:
+                    return True
+
+            __merge(file_paths, output_file_path)
             return False
         elif selection[0] == 2:
             # return true on abort so main nows we aborted and does not exit
