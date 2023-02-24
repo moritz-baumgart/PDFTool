@@ -15,7 +15,7 @@ def delete_pages():
     '''
 
     # prompt the user for a filename with the style above
-    file = prompt('\n● DELETE SINGLE PAGES\nEnter a file: ', completer=FileCompleter(), style=constants.PROMPT_STYLE)
+    file = prompt('\n● DELETE SINGLE PAGES\nEnter a file: ', completer=FileCompleter(), style=constants.PROMPT_STYLE).strip()
 
     # if no name given, abort
     if len(file) == 0:
@@ -38,7 +38,7 @@ def delete_pages():
     reader = PdfReader(path)
 
     # prompt the user pages to delete
-    page_indices = prompt('\nEnter the indices of pages to delete (starting at 1): ', completer=FileCompleter(), style=constants.PROMPT_STYLE)
+    page_indices = prompt('\nEnter the indices of pages to delete (starting at 1): ', completer=FileCompleter(), style=constants.PROMPT_STYLE).strip()
 
     # if none given, abort
     if len(page_indices) == 0:
@@ -76,7 +76,7 @@ def delete_pages():
             return True
 
     # prompt for an output file, if none is given overwrite input
-    output_file_name = prompt('\nEnter output file name (leave empty to overwrite input file): ', completer=FileCompleter(), style=constants.PROMPT_STYLE)
+    output_file_name = prompt('\nEnter output file name (leave empty to overwrite input file): ', completer=FileCompleter(), style=constants.PROMPT_STYLE).strip()
     output_path = pathlib.Path(output_file_name)
     if len(output_file_name) == 0:
         output_path = path
@@ -105,3 +105,5 @@ def delete_pages():
 
     print('Saving result...')
     writer.write(output_path)
+
+    return False

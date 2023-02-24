@@ -14,7 +14,7 @@ def reorder_dual_page():
     '''
 
     # prompt the user for a filename with the style above
-    file = prompt('\n● REORDER DUAL PAGE\nEnter a file: ', completer=FileCompleter(), style=constants.PROMPT_STYLE)
+    file = prompt('\n● REORDER DUAL PAGE\nEnter a file: ', completer=FileCompleter(), style=constants.PROMPT_STYLE).strip()
 
     # if no name given, abort
     if len(file) == 0:
@@ -35,7 +35,7 @@ def reorder_dual_page():
         return True
 
     # prompt for an output file name with style, if none is given use default
-    output_file_name = prompt('\nEnter output file name (leave empty for default \'reorder-output.pdf\'): ', style=constants.PROMPT_STYLE)
+    output_file_name = prompt('\nEnter output file name (leave empty for default \'reorder-output.pdf\'): ', style=constants.PROMPT_STYLE).strip()
     if len(output_file_name) == 0:
         output_file_name = 'reorder-output.pdf'
 

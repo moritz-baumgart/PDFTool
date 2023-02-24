@@ -39,7 +39,7 @@ def merge() -> bool:
         elif selection[0] == 0:
 
             # prompt user for a file/dir to be added, check existence
-            file = prompt('\nEnter a file or directory (leave empty for current directory): ', completer=FileCompleter(), style=constants.PROMPT_STYLE)
+            file = prompt('\nEnter a file or directory (leave empty for current directory): ', completer=FileCompleter(), style=constants.PROMPT_STYLE).strip()
             path = pathlib.Path(file).absolute()
             if path.exists():
                 file_paths.append(path)
@@ -48,7 +48,7 @@ def merge() -> bool:
         elif selection[0] == 1:
 
             # prompt output file name, if none given use default, then call __merge
-            output_file = prompt('\nEnter output file name (leave empty for default \'merge-output.pdf\'): ', style=constants.PROMPT_STYLE)
+            output_file = prompt('\nEnter output file name (leave empty for default \'merge-output.pdf\'): ', style=constants.PROMPT_STYLE).strip()
             if len(output_file) == 0:
                 output_file = 'merge-output.pdf'
             __merge(file_paths, output_file)
@@ -80,11 +80,11 @@ def __merge(file_paths: List[pathlib.Path], output_file_name: str) -> None:
                 # if directory, scan for pdfs in the dir
                 elif fp.is_dir():
                     print(f'Found directory! Searching PDFs in: {fp}')
-                    for fpd in [pathlib.Path(file) for file in os.listdir()]:
+                    for fpd in [pathlib.Path(os.path.join(fp, file)) for file in os.listdir(fp)]:
                         if fpd.is_file():
                             if fpd.suffix == '.pdf':
                                 all_pdf_paths.append(fpd)
-                                print(f'Found PDF! Added: {fp}')
+                                print(f'Found PDF! Added: {fpd}')
 
     with patch_stdout():
         # use pypdf2 pdf merger to merge the pdfs
