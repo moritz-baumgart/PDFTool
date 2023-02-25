@@ -11,7 +11,7 @@ from util import FileCompleter, constants, create_cli_menu
 def delete_pages():
     '''
     Prompts the user for a document and pages to delete.
-    Deletes the files and either overwrites the original or saves it in a new file.
+    Deletes the given pages by index and either overwrites the original or saves it in a new file.
     '''
 
     # prompt the user for a filename with the style above
